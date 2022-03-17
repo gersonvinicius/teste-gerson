@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CubagemController;
+use App\Http\Controllers\NotaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('nota', [NotaController::class, 'index']);
+Route::get('nota/inserir', [NotaController::class, 'create'])->name('nota.inserir');
+Route::post('nota/gravar', [NotaController::class, 'store'])->name('nota.gravar');
+Route::resource('cubagem', CubagemController::class);
+Route::resource('numeros', NumerosController::class);
