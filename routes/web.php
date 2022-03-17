@@ -24,8 +24,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('nota', [NotaController::class, 'index']);
+Route::get('nota', [NotaController::class, 'index'])->name('nota.index');
 Route::get('nota/inserir', [NotaController::class, 'create'])->name('nota.inserir');
 Route::post('nota/gravar', [NotaController::class, 'store'])->name('nota.gravar');
-Route::get('numero', [NumeroController::class, 'index']);
-Route::resource('cubagem', CubagemController::class);
+
+Route::get('numero', [NumeroController::class, 'index'])->name('numero.index');
+
+Route::get('cubagem', [CubagemController::class, 'index'])->name('cubagem.index');
+Route::get('cubagem/inserir', [CubagemController::class, 'create'])->name('cubagem.inserir');
+Route::post('cubagem/gravar', [CubagemController::class, 'store'])->name('cubagem.gravar');
+Route::get('cubagem/gerar-pdf', [CubagemController::class, 'gerarPdf'])->name('cubagem.pdf');

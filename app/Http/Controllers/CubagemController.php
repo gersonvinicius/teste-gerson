@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Cubagem;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CubagemController extends Controller
 {
@@ -13,7 +16,8 @@ class CubagemController extends Controller
      */
     public function index()
     {
-        return view('cubagem');
+        $cubagens = Cubagem::paginate(5);
+        return view('cubagem.index',compact('cubagens'));
     }
 
     /**
@@ -23,7 +27,7 @@ class CubagemController extends Controller
      */
     public function create()
     {
-        //
+        return view('cubagem.cubagem');
     }
 
     /**
@@ -34,7 +38,20 @@ class CubagemController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
+        $data = $request->all();
+        $cubagem = (float) $data['altura'] * $data['largura'] * $data['profundidade'] * $data['cubagem'];
+        Cubagem::create(['valor' => $cubagem]);
+        $cubagens = Cubagem::paginate(5);
+        return redirect()->route('cubagem.index')->with('cubagens');
+    }
 
+    public function gerarPdf()
+    {
+        $cubagens = Cubagem::orderByDesc('created_at')->take(3)->get()->toArray();
+        // view()->share('cubagem',$data);
+        $pdf = PDF::loadView('cubagem.pdf', compact('cubagens'));
+        return $pdf->download('cubagens-valores.pdf');
     }
 
     /**

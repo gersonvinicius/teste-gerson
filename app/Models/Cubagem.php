@@ -11,5 +11,5 @@ class Cubagem extends Model
 
     protected $table = 'cubagems';
 
-
+    protected $fillable = ['valor'];
 }
