@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CubagemController;
 use App\Http\Controllers\NotaController;
+use App\Http\Controllers\NumeroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +27,5 @@ Route::get('/', function () {
 Route::get('nota', [NotaController::class, 'index']);
 Route::get('nota/inserir', [NotaController::class, 'create'])->name('nota.inserir');
 Route::post('nota/gravar', [NotaController::class, 'store'])->name('nota.gravar');
+Route::get('numero', [NumeroController::class, 'index']);
 Route::resource('cubagem', CubagemController::class);
-Route::resource('numeros', NumerosController::class);
